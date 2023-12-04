@@ -17,23 +17,33 @@ getQstDetail(userInfo.userInfo.accessToken,route.params.id)
       qstInfo.value = resp.result
     }
   })
+
 </script>
 
 <template>
   <div v-if="qstInfo">
-    <h1>{{ qstInfo.name }}</h1><br>
-    <h2 v-if="qstInfo.note">笔记文件： <a :href="qstInfo.note" target="_blank">这里</a></h2><br>
+    <div v-if="qstInfo.name">
+      <el-text size="large">{{ qstInfo.name }}</el-text>
+      <el-divider />
+    </div><br>
+    <div v-if="qstInfo.note">
+      <el-text size="large">笔记文件： <el-link :href="qstInfo.note" target="_blank">这里</el-link></el-text>
+      <el-divider />
+    </div><br>
     <div v-if="qstInfo.extraStems && qstInfo.extraStems.length">
-      <h2>额外stem: </h2><br>
+      <el-text size="large">额外stem: </el-text><br>
       <div v-for="picUrl in qstInfo.extraStems">
-        <img :src="picUrl" alt="pic">
+        <el-image :src="picUrl" alt="pic" style="width: 500px" />
       </div>
+      <el-divider />
     </div>
+
     <div v-if="qstInfo.pictureNote && qstInfo.pictureNote.length">
-      <h2>图片笔记: </h2><br>
+      <el-text size="large">图片笔记: </el-text><br>
       <div v-for="picUrl in qstInfo.pictureNote">
-        <img :src="picUrl" alt="pic">
+        <el-image :src="picUrl" alt="pic" style="width: 500px"/>
       </div>
+      <el-divider />
     </div>
   </div>
 </template>

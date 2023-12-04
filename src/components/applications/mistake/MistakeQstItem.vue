@@ -8,8 +8,11 @@ const props = defineProps({
 
 <template>
   <div class="qst-item">
-    <h2>{{ name }}</h2>
-    <img :src="pic" alt="snapshot">
+    <el-text size="large"> {{ name }} </el-text>
+    <el-divider />
+    <div class="img">
+      <el-image :src="pic" alt="snapshot" />
+    </div>
   </div>
 </template>
 
@@ -20,7 +23,16 @@ const props = defineProps({
   padding: 20px; /* 设置内边距 */
   width: 300px; /* 设置宽度 */
   height: 200px; /* 设置高度 */
+}
+.img {
+  width: 280px;
+  max-height: 120px;
   overflow: hidden;
+  align-content: center;
+  justify-content: center;
+  border-radius: 2px;
+  border-color: var(--el-border-color-light);
+  display: flex;
 }
 
 .qst-item h2 {
@@ -31,7 +43,7 @@ const props = defineProps({
 
 
 
-.qst-item img {
+.qst-item el-image {
   width: 100%; /* 将图像的宽度设置为100%，使其填充整个 div 的宽度 */
   height: auto; /* 将图像的高度设置为自动，以保持原始图像的宽高比 */
 }

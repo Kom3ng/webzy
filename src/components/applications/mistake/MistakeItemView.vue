@@ -44,27 +44,35 @@ function showDetail(id){
 </script>
 
 <template>
-  <div class="wrapper">
-    <mistake-qst-item
-        v-for="item in qsts.items"
-        :name="item.name?item.name:item.source"
-        :key="item.id"
-        :pic="item.stemShoot"
-        @click="showDetail(item.id)"
-    ></mistake-qst-item>
+  <div style="width: 100%">
+    <div class="wrapper">
+      <MistakeQstItem
+          v-for="item in qsts.items"
+          :name="item.name?item.name:item.source"
+          :key="item.id"
+          :pic="item.stemShoot"
+          @click="showDetail(item.id)"
+      ></MistakeQstItem>
+    </div>
+    <div class="pg-r">
+      <el-button @click="previousPage" :disabled="currentPageIndex === 0">上一页</el-button>
+      <el-text>{{ currentPageIndex + 1 }}</el-text>
+      <el-button @click="nextPage()">下一页</el-button>
+    </div>
   </div>
-  <div>
-    <button @click="previousPage" :disabled="currentPageIndex === 0">上一页</button>
-    <span>{{ currentPageIndex + 1 }}</span>
-    <button @click="nextPage()">下一页</button>
-  </div>
+
 </template>
 
 <style scoped>
 .wrapper{
+  width: 100%;
   margin: 60px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 400px);
+  grid-template-columns: repeat(auto-fill, 360px);
   grid-gap: 20px;
 }
+.pg-r {
+  align-content: center;
+}
+
 </style>

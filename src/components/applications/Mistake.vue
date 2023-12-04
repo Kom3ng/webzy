@@ -20,7 +20,7 @@ getMistakeBooks(userInfo.accessToken)
 <template>
   <div class="wrapper">
     <MistakeBook v-for="book in mistakeBooks" :key="book.topic.sort" :id="book.id">
-      {{ book.topic.content }}
+      <el-text> {{ book.topic.content }} </el-text>
     </MistakeBook>
   </div>
 </template>

@@ -1,17 +1,16 @@
 import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
 
 import { createApp } from 'vue'
 import {createRouter, createWebHashHistory} from 'vue-router'
 import All from "@/components/All.vue";
 import App from "@/App.vue";
-import HelloWorld from "@/components/HelloWorld.vue";
 import Login from "@/components/Login.vue";
 import {createPinia} from "pinia";
 import ElementPlus from 'element-plus'
 import {useUserInfoStore} from "@/assets/js/Stores";
 import Mistake from "@/components/applications/Mistake.vue";
 import MistakeItemView from "@/components/applications/mistake/MistakeItemView.vue";
-import MistakeBookView from "@/components/applications/mistake/MistakeBookView.vue";
 import QstInfoView from "@/components/applications/mistake/QstInfoView.vue";
 import Home from "@/components/applications/Home.vue";
 

@@ -16,18 +16,20 @@ function mistakeBookDetail(){
 </script>
 
 <template>
-  <div class="mistake-book" @click="mistakeBookDetail">
+  <el-card class="mistake-book" @click="mistakeBookDetail">
     <slot />
-  </div>
+  </el-card>
 </template>
 
 <style scoped>
 .mistake-book {
   width: 170px;
   height: 80px;
+  display: flex;
   align-content: center;
-  text-align: center;
-  background-color: #97cdd7;
+  justify-content: center;
+  background-color: var(--el-fill-color);
   border-radius: 7px;
+  border-color: var(--el-border-color-light);
 }
 </style>

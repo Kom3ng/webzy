@@ -1,14 +1,10 @@
 <script setup>
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import {useBaseUrlStore, useUserInfoStore} from "@/assets/js/Stores";
-import Model from "@/components/Model.vue";
 import {ElMessage} from "element-plus";
 import {useRouter} from "vue-router";
-
-let password = ref("")
-let username = ref("")
-let showUsernameHint = ref(false)
-let showPasswordHint = ref(false)
+import {useDark} from "@vueuse/core";
+const isDark = useDark()
 let baseUrl
 const router = useRouter();
 
@@ -17,7 +13,7 @@ useBaseUrlStore().baseUrl
 
 let userInfoStore = useUserInfoStore();
 
-function submitForm(username,password) {
+function login(username,password) {
   while (!baseUrl){}
 
   fetch(baseUrl.value + "/api/TokenAuth/Login", {
@@ -48,32 +44,70 @@ function submitForm(username,password) {
       })
 }
 
-function checkUsername(){
-  return username.value.length > 2;
+const checkUsername = (rule,value,callback) => {
+  if (!value){
+    return callback(new Error("please enter username"))
+  }
+  callback()
 }
-function checkPassword(){
-  return password.value.length > 6;
+const checkPassword = (rule,value,callback) => {
+  if (!value){
+    return callback(new Error("please enter password"))
+  }
+  callback()
 }
-function checkValid(){
-  return checkUsername() && checkPassword();
+const loginForm = reactive({
+    username: '',
+    password: ''
+})
+const submitForm = (form)=>{
+  if(!form) return
+  form.validate((v) => {
+    if (v) {
+      login(loginForm.username,loginForm.password)
+    } else {
+      return false
+    }
+  })
 }
+const rules = reactive({
+  username: [{ validator: checkUsername, trigger: 'blur'}],
+  password: [{ validator: checkPassword, trigger: 'blur' }]
+})
+const loginFormRef = ref()
 
 </script>
 
 <template>
   <div class="login-container">
-    <div class="login-box">
+        <div class="login-box">
       <h1>Login</h1>
-      <form @submit.prevent="submitForm(username,password)">
-        <input @change="showUsernameHint = !checkUsername()" type="text" v-model="username" placeholder="Username" required>
-        <br>
-        <input @change="showPasswordHint = !checkPassword()" type="password" v-model="password" placeholder="Password" required>
-        <br>
-        <span class="warning" v-if="showUsernameHint"><img src="@/assets/icon/tips_red.svg" alt="tips" height="12"> 用户名应在2个字符以上<br></span>
-        <span class="warning" v-if="showPasswordHint"><img src="@/assets/icon/tips_red.svg" alt="tips" height="12"> 密码应在2个字符以上<br></span>
-        <br>
-        <button :disabled="!checkValid()" type="submit">Login</button>
-      </form>
+      <el-form 
+        ref="loginFormRef"
+        :model="loginForm"
+        :rules="rules">
+        <el-form-item
+          label="Username"
+          prop="username">
+          <el-input 
+          type="text" 
+          v-model="loginForm.username" 
+          placeholder="Username"
+          required></el-input>
+        </el-form-item>
+        <el-form-item
+          label="Passowrd"
+          prop="password">
+        <el-input 
+          type="password" 
+          v-model="loginForm.password" 
+          placeholder="Password" 
+          show-password
+          auto-compelete="off"
+          required></el-input>
+        </el-form-item>
+        <el-button @click="submitForm(loginFormRef)" type="primary">Login</el-button>
+      </el-form>
     </div>
   </div>
 </template>
@@ -85,9 +119,11 @@ function checkValid(){
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
-  background-color: #fff;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--el-box-shadow);
+
+  border: 1px var(--el-border-color);
+  background-color: var(--el-fill-color);
 }
 
 .login-box {
@@ -95,33 +131,16 @@ function checkValid(){
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--el-fill-color);
 }
 
 .login-box h1 {
   margin-bottom: 20px;
 }
 
-.login-box form input {
-  margin-bottom: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.login-box form button {
-  padding: 10px;
-  background-color: #00cdea;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
 .login-box form button:hover {
   transform: scale(1.1);
   transition-duration: 0.07s;
 }
 
-.warning {
-  color: crimson;
-}
 </style>
