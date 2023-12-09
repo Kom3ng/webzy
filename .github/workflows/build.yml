@@ -11,7 +11,10 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
       - name: npm install
         run: |
           npm install
@@ -26,7 +29,6 @@ jobs:
         uses: s0/git-publish-subdir-action@master
         env:
           REPO: git@github.com:websxz/zykj.git
-          BRANCH: master
-          FOLDER: build
+          BRANCH: main
+          FOLDER: dist
           SSH_PRIVATE_KEY: ${{ secrets.sshkey }}
-

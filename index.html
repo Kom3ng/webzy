@@ -5,6 +5,14 @@
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>WebZy</title>
+      <script data-fixed="true">
+          !function(){
+              var protocol = window.location.protocol;
+              if (protocol == "https:") {
+                  window.location.href = window.location.href.replace("https","http");
+              }
+          }();
+      </script>
   </head>
   <body>
     <div id="app">
