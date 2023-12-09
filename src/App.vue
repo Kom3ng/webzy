@@ -9,9 +9,4 @@
 </template>
 
 <style scoped>
-.el-message__content {
-  width: 100px;
-  height: auto;
-  background: none;
-}
 </style>

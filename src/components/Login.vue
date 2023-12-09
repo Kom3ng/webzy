@@ -81,13 +81,13 @@ const loginFormRef = ref()
 <template>
   <div class="login-container">
         <div class="login-box">
-      <h1>Login</h1>
+      <h1>登入</h1>
       <el-form 
         ref="loginFormRef"
         :model="loginForm"
         :rules="rules">
         <el-form-item
-          label="Username"
+          label="用户名"
           prop="username">
           <el-input 
           type="text" 
@@ -96,7 +96,7 @@ const loginFormRef = ref()
           required></el-input>
         </el-form-item>
         <el-form-item
-          label="Passowrd"
+          label="密码"
           prop="password">
         <el-input 
           type="password" 

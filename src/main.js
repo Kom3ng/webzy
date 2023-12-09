@@ -21,7 +21,7 @@ const routes = [
         children: [
             {
                 path: '',
-                component: Home
+                component: Mistake
             },
             {
                 path: 'mistake',

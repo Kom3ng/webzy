@@ -3,6 +3,7 @@
   import {ref} from "vue";
   import { Sunny, MoonNight } from "@element-plus/icons-vue"
   import {useRouter} from "vue-router";
+  import {useUserInfoStore} from "../assets/js/Stores";
 
   const activeIndex = ref('1')
   const router = useRouter();
@@ -14,7 +15,8 @@
     }
   }
   const isDark = useDark()
-  useToggle(isDark);
+  useToggle(isDark)
+  const token = ref(useUserInfoStore().userInfo.accessToken)
 </script>
 
 <template>
@@ -33,7 +35,8 @@
           alt="Element logo"
       />
     </el-menu-item>
-    <el-menu-item index="1">Mistake</el-menu-item>
+    <el-menu-item index="1">错题本</el-menu-item>
+    <el-menu-item index="2"><el-link target="_blank" :href="'http://sxz.school.zykj.org/navPage.html?apiHost=http://sxz.api6.zykj.org&apiToken='+token+'&timestamp='+Date.now()">在线专栏</el-link></el-menu-item>
     <div class="rb">
       <el-space warp direction="horizontal">
         <div>
